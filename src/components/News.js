@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 import Newsitem from "./Newsitem";
 import Spinner from "./Spinner";
+import PropTypes from "prop-types";
 
 export default class News extends Component {
+  static defaultProps = {
+    pageSize: 8,
+    category: "science",
+  };
+  static propTypes = {
+    pageSize: PropTypes.number,
+    category: PropTypes.string,
+  };
   constructor() {
     super();
     console.log("constructor of news called");
@@ -14,7 +23,7 @@ export default class News extends Component {
     };
   }
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=421dc721667c40f2a7a0b935d0a1d304&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=421dc721667c40f2a7a0b935d0a1d304&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     const response = await fetch(url);
     const parsedResponse = await response.json();
@@ -26,7 +35,9 @@ export default class News extends Component {
     });
   }
   prevHandler = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=421dc721667c40f2a7a0b935d0a1d304&pageSize=${
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${
+      this.props.category
+    }&apiKey=421dc721667c40f2a7a0b935d0a1d304&pageSize=${
       this.props.pageSize
     }&page=${this.state.page - 1}`;
     this.setState({ loading: true });
@@ -40,7 +51,9 @@ export default class News extends Component {
     });
   };
   nextHandler = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=421dc721667c40f2a7a0b935d0a1d304&pageSize=${
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${
+      this.props.category
+    }&apiKey=421dc721667c40f2a7a0b935d0a1d304&pageSize=${
       this.props.pageSize
     }&page=${this.state.page + 1}`;
     this.setState({ loading: true });

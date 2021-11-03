@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 
+import { Link } from "react-router-dom";
+
 export class NavBar extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <Link className="navbar-brand" to="#">
             Navbar
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -22,14 +24,39 @@ export class NavBar extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">
+                <Link className="nav-link active" aria-current="page" to="/">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">
-                  Link
-                </a>
+                <Link className="nav-link" to="/sports">
+                  sports
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/general">
+                  general
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/technology">
+                  technology
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/health">
+                  health
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/science">
+                  science
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/entertainment">
+                  entertainment
+                </Link>
               </li>
             </ul>
           </div>
