@@ -34,35 +34,19 @@ export default class News extends Component {
       loading: false,
     });
   }
-  prevHandler = async () => {
+  pageHandler = async (type) => {
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=${
       this.props.category
     }&apiKey=421dc721667c40f2a7a0b935d0a1d304&pageSize=${
       this.props.pageSize
-    }&page=${this.state.page - 1}`;
+    }&page=${type === "next" ? this.state.page + 1 : this.state.page - 1}`;
     this.setState({ loading: true });
     const response = await fetch(url);
     const parsedResponse = await response.json();
 
     this.setState({
       articles: parsedResponse.articles,
-      page: this.state.page - 1,
-      loading: false,
-    });
-  };
-  nextHandler = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${
-      this.props.category
-    }&apiKey=421dc721667c40f2a7a0b935d0a1d304&pageSize=${
-      this.props.pageSize
-    }&page=${this.state.page + 1}`;
-    this.setState({ loading: true });
-    const response = await fetch(url);
-    const parsedResponse = await response.json();
-
-    this.setState({
-      articles: parsedResponse.articles,
-      page: this.state.page + 1,
+      page: type === "next" ? this.state.page + 1 : this.state.page - 1,
       loading: false,
     });
   };
@@ -95,7 +79,9 @@ export default class News extends Component {
         </div>
         <div className="container d-flex justify-content-between">
           <button
-            onClick={this.prevHandler}
+            onClick={() => {
+              this.pageHandler("prev");
+            }}
             type="button"
             className="btn btn-dark"
             disabled={this.state.page <= 1}
@@ -103,7 +89,9 @@ export default class News extends Component {
             &#8592; prev
           </button>
           <button
-            onClick={this.nextHandler}
+            onClick={() => {
+              this.pageHandler("next");
+            }}
             type="button"
             className="btn btn-dark"
             disabled={
